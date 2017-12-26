@@ -1,0 +1,190 @@
+/********************************
+			Global
+********************************/
+:root {
+	--white			: #FFFFFF;
+	--gray-light	: #EEEEEE;
+	--gray			: #A9A9A9;
+	--gray-dark		: #9A9A9A;
+	--blue-light	: #75A4F4;
+	--blue			: #4386FA;
+	--blue-dark		: #2B74F2;
+	--red			: #FF0000;
+	--blue-highlight: #E0EAF9;
+	--green-light	: #65C295;
+	--green-dark	: #009353;
+	--green			: #00A65D;
+}
+
+html {
+	-webkit-user-select: none;
+	width: 600px;
+	height: 400px;
+}
+
+body {
+	width: 600px;
+	height: 400px;
+	margin: 0;
+}
+
+input {
+	-webkit-user-select: auto;
+	border-style: solid;
+	border-color: var(--gray);
+	border-width: 0px;
+	margin: 5px 5px 5px 5px;
+	height: 21px;
+	padding: 1px;
+	outline: 0;
+}
+
+input:focus {
+	border-style: solid;
+	border-color: var(--blue-light);
+	border-width: 0px;
+	background-color: var(--blue-highlight);
+}
+
+button {
+	outline: 0;
+	padding: 0;
+	border-style: none;
+}
+
+
+ul {
+	list-style-type: none;
+	overflow: hidden;
+	overflow-y: scroll;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	width: 583px;
+	height: 31px;
+}
+
+li:nth-child(odd) {
+	background-color: var(--green);
+}
+
+li:nth-child(even) {
+	background-color: var(--green-dark);
+}
+
+li:nth-child(odd) ::selection {
+	color: var(--white);
+	background-color: var(--green);
+}
+
+li:nth-child(even) ::selection {
+	color: var(--white);
+	background-color: var(--green-dark);
+}
+
+#box {
+	margin:auto;
+	width: 583px;
+}
+
+
+#shortcuts-menu {
+	margin: 0;
+	padding: 0;
+	width: 600px;
+	height: 400px;
+}
+
+#sorting-menu {
+	margin: 0;
+	padding: 0;
+	width: 600px;
+	height: 50px;
+	background-color: var(--green);
+}
+
+
+#clipboard-menu {
+	margin: 0;
+	padding: 0;
+	width: 350px;
+	height: 50px;
+}
+
+.sort-button, .copy-button {
+	cursor: pointer;
+	height: 50px;
+	width: 50px;
+	float:left;
+	background-color: var(--green);
+}
+
+.sort-button:hover, .sort-button:focus, .copy-button:hover, .copy-button:focus {
+	background-color: var(--green-light);
+}
+
+.sort-button[disabled], .sort-button[disabled]:hover {
+	cursor: default;
+	background-color: var(--green-dark);
+}
+
+.copy-button[disabled], .copy-button[disabled]:hover {
+	cursor: default;
+	background-color: var(--gray);
+}
+
+.icon {
+	height: 30px;
+	width: 30px;
+	margin: 10px;
+}
+
+
+
+
+
+
+
+
+.clipboard-tab {
+	width: 350px;
+	height: 50px;
+}
+
+
+#shortcut-input {
+	height: 50px;
+	width: 225px;
+	font-size: 250%;
+	margin: 0;
+	border-style: solid;
+	border-width: 2px 2px 2px 0px;
+	border-color: var(--gray);
+	float: left;
+}
+
+#shortcut-input:focus {
+	background-color: var(--white);
+}
+
+#shortcut-input::selection {
+	color: var(--white);
+	background: var(--green);
+}
+
+.hashtag {
+	font-family: Arial;
+	font-size: 250%;
+	text-align: center;
+	line-height: 45px;
+	padding: 0;
+	margin: 0;
+	width: 23px;
+	height: 46px;
+	border-style: solid;
+	border-width: 2px 0 2px 2px;
+	border-color: var(--gray);
+	float:left;
+}

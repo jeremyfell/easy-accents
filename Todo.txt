@@ -1,0 +1,5 @@
+Configure CSS for shortcuts tab
+Code the four different forms of sorting
+Code the list generation, and input checking
+Code the shortcut entry, with input checking
+Code the shortcut storage, and retrieval

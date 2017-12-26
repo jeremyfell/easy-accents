@@ -1,0 +1,14 @@
+{
+shortcut = "e'"
+unicode = "0234",
+}
+
+// Copy text to clipboard
+
+var temp = document.createElement("textarea");
+document.body.appendChild(temp);
+temp.value = "Test";
+temp.focus();
+temp.select();
+document.execCommand("Copy");
+temp.remove();
