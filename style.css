@@ -158,7 +158,7 @@ Toolbar Tab
 	padding-left: 10px;
 }
 
-#shortcut-input::selection, #add-shortcut-input::selection, #add-replacement-input::selection {
+#shortcut-input::selection, #add-shortcut-input::selection, #add-replacement-input::selection, .edit-shortcut-input::selection, .edit-replacement-input::selection {
 	color: var(--white);
 	background: var(--green);
 }
@@ -244,7 +244,7 @@ Edit tab
 
 .edit-hashtag {
 	font-family: Arial;
-	font-size: 26px;
+	font-size: 24px;
 	text-align: center;
 	line-height: 30px;
 	padding: 0;
@@ -262,7 +262,7 @@ Edit tab
 
 .edit-shortcut-input, .edit-replacement-input {
 	height: 34px;
-	font-size: 26px;
+	font-size: 24px;
 	margin: 0;
 	margin-top: 3px;
 	border-style: solid;
@@ -285,7 +285,7 @@ Edit tab
 
 .edit-equals {
 	font-family: Arial;
-	font-size: 26px;
+	font-size: 24px;
 	text-align: center;
 	line-height: 40px;
 	padding: 0;

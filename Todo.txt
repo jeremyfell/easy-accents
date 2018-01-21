@@ -1,5 +1,13 @@
-Configure CSS for shortcuts tab
-Code the four different forms of sorting
-Code the list generation, and input checking
-Code the shortcut entry, with input checking
-Code the shortcut storage, and retrieval
+Edit and validate shortcut and replacement entries in the edit tab
+Default message in edit tab for when user has no saved shortcuts
+Explanation somewhere of how capital letters cannot be used, but that capital letters are generated automatically
+Max limit of shortcuts
+Max limit of characters contained within shortcuts
+Chrome extension icons
+
+
+You don't have any shortcuts to edit!
+That's okay, you can use the Add tab to create one.
+Simply enter a shortcut in the first input, the character/text that will replace it in the second input, and then click the save button
+
+Or click here to load some default shortcuts

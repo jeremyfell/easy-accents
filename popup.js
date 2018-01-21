@@ -128,7 +128,7 @@ function addShortcut() {
 	SHORTCUTS[shortcut] = replacement;
 
 	newShortcut[shortcut] = {"replacement": replacement, "timeCreated": time };
-	alert(newShortcut.timeCreated);
+
 	chrome.storage.sync.set(newShortcut);
 
 	addTab();
@@ -221,7 +221,7 @@ function editTab() {
 function validShortcut() {
 	value = document.getElementById("shortcut-input").value;
 
-	if (SHORTCUTS[value]) {
+	if (SHORTCUTS[value] || SHORTCUTS[value.toLowerCase()]) {
 		document.getElementById("toolbar-hashtag").classList.add("input-valid");
 		document.getElementById("shortcut-input").classList.add("input-valid");
 		document.getElementById("shortcut-input").title = SHORTCUTS[value];
@@ -237,7 +237,8 @@ function validShortcut() {
 
 function copyToolbarReplacement() {
 	if (document.getElementById("clipboard-button").disabled === false) {
-		var value = SHORTCUTS[document.getElementById("shortcut-input").value]
+		var shortcut = document.getElementById("shortcut-input").value;
+		value = (SHORTCUTS[shortcut]) ? SHORTCUTS[shortcut] : SHORTCUTS[shortcut.toLowerCase()].toUpperCase();
 		copyToClipboard(value);
 		window.close();
 	}
