@@ -2,11 +2,83 @@
 	<head>
 		<link href="style.css" rel="stylesheet" id="popup">
 	</head>
-	
+
 	<body>
-	
+
+		<div id="toolbar-menu">
+
+			<button id="options-button" class="toolbar-button" title="Edit and add shortcuts">
+				<img id="options-icon" class="icon" src="svg/options.svg"></img>
+			</button>
+
+			<p class="hashtag">#</p>
+
+			<input id="shortcut-input" type="text" spellcheck="false"></input>
+
+			<button disabled id="clipboard-button" class="toolbar-button" title="Copy shortcut's replacement to clipboard">
+				<img id="clipboard-icon" class="icon" src="svg/clipboard.svg"></img>
+			</button>
+
+		</div>
+
+		<div id="options">
+
+			<div id="options-menu">
+
+				<button id="edit-tab-button" class="menu-button" title="Edit shortcuts">
+					<img id="edit-icon" src="svg/edit.svg"></img>
+				</button>
+
+				<button disabled id="add-tab-button" class="menu-button" title="Add shortcuts">
+					<img id="add-icon" src="svg/add.svg"><img>
+				</button>
+
+			</div>
+
+			<div id="add-tab">
+
+				<div id="add-shortcut">
+
+					<div class="icon-container">
+						<img class="icon" src="svg/key.svg"></img>
+					</div>
+
+					<p class="hashtag">#</p>
+
+					<input id="add-shortcut-input" class="add-input" placeholder="Shortcut"></input>
+
+				</div>
+
+				<div id="add-replacement">
+
+					<div class="icon-container">
+						<img class="icon" src="svg/keyboard.svg"></img>
+					</div>
+
+					<input id="add-replacement-input" class="add-input" placeholder="Replacement"></input>
+
+				</div>
+
+				<button disabled id="add-save-button" class="save-button">
+					<img id="save-icon" class="icon" src="svg/save.svg"></img>
+				</button>
+
+			</div>
+
+
+			<div id="edit-tab">
+
+
+			</div>
+
+
+			</div>
+
+		</div>
+
+
 	</body>
 
 	<script src="popup.js"></script>
-	
+
 </html>

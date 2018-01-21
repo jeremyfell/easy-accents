@@ -28,68 +28,6 @@ body {
 	margin: 0;
 }
 
-input {
-	-webkit-user-select: auto;
-	border-style: solid;
-	border-color: var(--gray);
-	border-width: 0px;
-	margin: 5px 5px 5px 5px;
-	height: 21px;
-	padding: 1px;
-	outline: 0;
-}
-
-input:focus {
-	border-style: solid;
-	border-color: var(--blue-light);
-	border-width: 0px;
-	background-color: var(--blue-highlight);
-}
-
-button {
-	outline: 0;
-	padding: 0;
-	border-style: none;
-}
-
-
-ul {
-	list-style-type: none;
-	overflow: hidden;
-	overflow-y: scroll;
-	margin: 0;
-	padding: 0;
-}
-
-li {
-	width: 583px;
-	height: 31px;
-}
-
-li:nth-child(odd) {
-	background-color: var(--green);
-}
-
-li:nth-child(even) {
-	background-color: var(--green-dark);
-}
-
-li:nth-child(odd) ::selection {
-	color: var(--white);
-	background-color: var(--green);
-}
-
-li:nth-child(even) ::selection {
-	color: var(--white);
-	background-color: var(--green-dark);
-}
-
-#box {
-	margin:auto;
-	width: 583px;
-}
-
-
 #shortcuts-menu {
 	margin: 0;
 	padding: 0;
@@ -106,31 +44,45 @@ li:nth-child(even) ::selection {
 }
 
 
-#clipboard-menu {
-	margin: 0;
-	padding: 0;
-	width: 350px;
+.toolbar-button, .menu-button, .sort-button, .save-button, .icon-container {
 	height: 50px;
-}
-
-.sort-button, .copy-button {
-	cursor: pointer;
-	height: 50px;
-	width: 50px;
-	float:left;
+	float: left;
 	background-color: var(--green);
+	outline: 0;
+	padding: 0;
+	border-style: none;
 }
 
-.sort-button:hover, .sort-button:focus, .copy-button:hover, .copy-button:focus {
+.toolbar-button, .icon-container {
+	width: 50px;
+}
+
+.toolbar-button, .menu-button, .sort-button {
+	cursor: pointer;
+}
+
+.menu-button {
+	width: 50%;
+}
+
+.sort-button {
+	width: 25%;
+}
+
+.save-button {
+	width: 100%;
+}
+
+.toolbar-button:hover, .toolbar-button:focus, .menu-button:hover, .menu-button:focus, .sort-button:hover, .sort-button:focus, .save-button:hover, .save-button:focus {
 	background-color: var(--green-light);
 }
 
-.sort-button[disabled], .sort-button[disabled]:hover {
+.menu-button[disabled], .menu-button[disabled]:hover, .sort-button[disabled], .sort-button[disabled]:hover {
 	cursor: default;
 	background-color: var(--green-dark);
 }
 
-.copy-button[disabled], .copy-button[disabled]:hover {
+.toolbar-button[disabled], .toolbar-button[disabled]:hover, .save-button[disabled], .save-button[disabled]:hover {
 	cursor: default;
 	background-color: var(--gray);
 }
@@ -141,44 +93,27 @@ li:nth-child(even) ::selection {
 	margin: 10px;
 }
 
+/*///////////////////
+Toolbar Tab
+///////////////////*/
 
-
-
-
-
-
-
-.clipboard-tab {
+#toolbar-tab {
 	width: 350px;
 	height: 50px;
 }
 
-
-#shortcut-input {
-	height: 50px;
-	width: 225px;
-	font-size: 250%;
+#toolbar-menu {
 	margin: 0;
-	border-style: solid;
-	border-width: 2px 2px 2px 0px;
-	border-color: var(--gray);
-	float: left;
-}
-
-#shortcut-input:focus {
-	background-color: var(--white);
-}
-
-#shortcut-input::selection {
-	color: var(--white);
-	background: var(--green);
+	padding: 0;
+	width: 350px;
+	height: 50px;
 }
 
 .hashtag {
 	font-family: Arial;
-	font-size: 250%;
+	font-size: 32px;
 	text-align: center;
-	line-height: 45px;
+	line-height: 46px;
 	padding: 0;
 	margin: 0;
 	width: 23px;
@@ -187,4 +122,85 @@ li:nth-child(even) ::selection {
 	border-width: 2px 0 2px 2px;
 	border-color: var(--gray);
 	float:left;
+}
+
+#shortcut-input, #add-shortcut-input, #add-replacement-input {
+	height: 50px;
+	font-size: 32px;
+	margin: 0;
+	border-style: solid;
+	border-color: var(--gray);
+	float: left;
+	outline: 0;
+}
+
+#shortcut-input, #add-shortcut-input {
+	width: 225px;
+	border-width: 2px 2px 2px 0px;
+}
+
+#add-replacement-input {
+	width: 250px;
+	border-width: 2px;
+	padding-left: 10px;
+}
+
+#shortcut-input::selection, #add-shortcut-input::selection, #add-replacement-input::selection {
+	color: var(--white);
+	background: var(--green);
+}
+
+#add-icon {
+  width: 36px;
+  height: 36px;
+  margin: 7px auto;
+}
+
+#edit-icon {
+  width: 36px;
+  height: 36px;
+  margin: 7px auto;
+}
+
+
+/*///////////////////
+Options Page
+///////////////////*/
+
+#options-page {
+}
+
+#options-menu {
+	width: 100%;
+	height: 50px;
+}
+
+/*///////////////////
+Add tab
+///////////////////*/
+
+#add-shortcut, #add-replacement {
+	height: 50px;
+	width: 300px;
+	margin: auto;
+}
+
+#add-shortcut {
+	margin-top: 45px;
+	margin-bottom: 5px;
+}
+
+#add-replacement {
+	margin-top: 5px;
+	margin-bottom: 45px;
+}
+
+#add-tab {
+	display: block;
+	width: 100%;
+	margin: auto;
+}
+
+.menu-icon {
+  display: block;
 }
