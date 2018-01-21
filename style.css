@@ -18,15 +18,17 @@
 
 html {
 	-webkit-user-select: none;
-	width: 600px;
-	height: 400px;
 }
 
 body {
-	width: 600px;
-	height: 400px;
 	margin: 0;
 }
+
+#add-body {
+	width: 350px;
+	height: 350px;
+}
+
 
 #shortcuts-menu {
 	margin: 0;
@@ -38,7 +40,7 @@ body {
 #sorting-menu {
 	margin: 0;
 	padding: 0;
-	width: 600px;
+	width: 350px;
 	height: 50px;
 	background-color: var(--green);
 }
@@ -97,7 +99,7 @@ body {
 Toolbar Tab
 ///////////////////*/
 
-#toolbar-tab {
+#toolbar-body {
 	width: 350px;
 	height: 50px;
 }
@@ -186,13 +188,12 @@ Add tab
 }
 
 #add-shortcut {
-	margin-top: 45px;
-	margin-bottom: 5px;
+	margin-top: 70px;
+	margin-bottom: 10px;
 }
 
 #add-replacement {
-	margin-top: 5px;
-	margin-bottom: 45px;
+	margin-bottom: 70px;
 }
 
 #add-tab {

@@ -104,8 +104,7 @@ SOURCE = {
 function toolbarTab() {
 
 	document.getElementById("options").style.display = "none";
-	document.documentElement.id = "toolbar-tab";
-	document.body.id = "toolbar-tab";
+	document.body.id = "toolbar-body";
 
 	var toolbarMenuDiv = document.getElementById("toolbar-menu");
 	var optionsButton = document.getElementById("options-button");
@@ -221,7 +220,7 @@ function validShortcut() {
 	for (shortcut in SHORTCUTS) {
 		if (value === shortcut) {
 
-			document.getElementById("hashtag").style.borderColor = COLORS.green;
+			document.getElementById("toolbar-hashtag").style.borderColor = COLORS.green;
 			document.getElementById("shortcut-input").style.borderColor = COLORS.green;
 			document.getElementById("shortcut-input").title = SHORTCUTS[value];
 			document.getElementById("clipboard-button").disabled = false;
@@ -229,7 +228,7 @@ function validShortcut() {
 			return;
 		}
 
-	document.getElementById("hashtag").style.borderColor = null;
+	document.getElementById("toolbar-hashtag").style.borderColor = null;
 	document.getElementById("shortcut-input").style.borderColor = null;
 	document.getElementById("shortcut-input").title = "";
 	document.getElementById("clipboard-button").disabled = true;
@@ -267,9 +266,11 @@ function optionsPage() {
 	var addTabButton = document.getElementById("add-tab-button");
 	var editTabButton = document.getElementById("edit-tab-button");
 
+	document.body.id = "add-body";
+
 	toolbarMenu.style.display = "none";
 	options.style.display = null;
-	editTab.style.display = null;
+	editTab.style.display = "none";
 
 
 	addTabButton.addEventListener("click", function() {

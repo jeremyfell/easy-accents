@@ -23,7 +23,7 @@
 		}
 	],
 
-	"permissions": ["activeTab", "commands"],
+	"permissions": ["activeTab", "commands", "storage"],
 
 	"commands": {
 		"_execute_browser_action": {
