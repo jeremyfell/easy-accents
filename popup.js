@@ -9,28 +9,7 @@ DEFAULT_SHORTCUT_COUNT = 1;
 DEFAULT_CHARACTER_COUNT = 65;
 
 SHORTCUTS = {};
-
 DATES_CREATED = {};
-
-COLORS = {
-	green : "#00A65D"
-}
-
-SOURCE = {
-	add				: "svg/add.svg",
-	arrow			: "svg/arrow.svg",
-	check			: "svg/check.svg",
-	clipboard	: "svg/clipboard.svg",
-	date			: "svg/date.svg",
-	deleting	: "svg/delete.svg",
-	equal			: "svg/equal.svg",
-	key				: "svg/key.svg",
-	manage		: "svg/manage.svg",
-	name			: "svg/name.svg",
-	options		: "svg/options.svg",
-	settings	: "svg/settings.svg",
-	use				: "svg/use.svg"
-}
 
 function restoreDefaults() {
 	SHORTCUTS = {
@@ -480,16 +459,18 @@ function validateAddInputs() {
 
 }
 
+// Returns true if word contains any uppercase letter
 function containsUppercaseLetter(word) {
 	for (var i = 0; i < word.length; i++) {
-		var c = word[i];
-			if (c.toUpperCase() === c && c.toLowerCase() !== c) {
+		var char = word[i];
+			if (char.toUpperCase() === char && char.toLowerCase() !== char) {
 				return true;
 			}
-		}
-		return false;
+	}
+	return false;
 }
 
+// Adds all event listeners for the popup in the toolbar tab, options menu, add tab, and edit tab
 function addPopupEventListeners() {
 	var addTabButton = document.getElementById("add-tab-button");
 	var editTabButton = document.getElementById("edit-tab-button");
@@ -505,9 +486,9 @@ function addPopupEventListeners() {
 
 	var defaultButton = document.getElementById("default-button");
 
-	//
+	///////////////
 	// Options menu
-	//
+	///////////////
 	addTabButton.addEventListener("click", function() {
 		this.disabled = true;
 		document.getElementById("edit-tab-button").disabled = false;
@@ -525,9 +506,9 @@ function addPopupEventListeners() {
 	});
 
 
-	//
+	///////////////
 	// Toolbar tab
-	//
+	///////////////
 	toolbarMenuDiv.addEventListener("keydown", function(e) {
 		// If key is Ctrl
 		if (e.which === 17) copyToolbarReplacement();
@@ -550,9 +531,9 @@ function addPopupEventListeners() {
 		copyToolbarReplacement();
 	});
 
-	//
+	///////////////
 	// Add tab
-	//
+	///////////////
 	addShortcutInput.addEventListener("input", function() {
 		validateAddShortcutInput();
 	});
@@ -561,13 +542,21 @@ function addPopupEventListeners() {
 		validateAddReplacementInput();
 	});
 
+	addShortcutInput.addEventListener("keypress", function(e) {
+		if (e.which === 13) document.getElementById("add-replacement-input").select();
+	});
+
+	addReplacementInput.addEventListener("keypress", function(e) {
+		if (e.which === 13) document.getElementById("add-save-button").click();
+	});
+
 	addSaveButton.addEventListener("click", function() {
 		addShortcut();
 	});
 
-	//
+	///////////////
 	// Edit tab
-	//
+	///////////////
 	defaultButton.addEventListener("click", function() {
 		restoreDefaults();
 	});
