@@ -1,24 +1,82 @@
 <html>
 	<head>
-		<link href="style.css" rel="stylesheet" id="style">
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link href="style.css" rel="stylesheet" id="popup">
 	</head>
-	<body>
-		<div id="box">
-			<div id="menu">
-				<div id="sortbox">
-					<button class="menubutton" id="date"></button>
-					<button class="menubutton" id="use"></button>
-					<button class="menubutton" id="code"></button>
-				</div>
-			</div>
-			<ul id="shortcuts">
-				<li>hey</li>
-				<li>test</li>
-				<li>123</li>
-				<li>blarg</li>
-			</ul>
-		</div>
-	</body>
-	<script src="script.js"></script>
-</html>
+
+<div id="options">
+
+  <div id="options-menu">
+
+    <button id="edit-tab-button" class="menu-button" title="Edit shortcuts">
+      <img id="edit-icon" src="svg/edit.svg"></img>
+    </button>
+
+    <button disabled id="add-tab-button" class="menu-button" title="Add shortcuts">
+      <img id="add-icon" src="svg/add.svg"><img>
+    </button>
+
+  </div>
+
+  <div id="add-tab">
+
+    <div id="add-shortcut">
+
+      <div class="icon-container">
+        <img class="icon" src="svg/key.svg"></img>
+      </div>
+
+      <p class="hashtag">#</p>
+
+      <input id="add-shortcut-input" class="add-input" placeholder="Shortcut"></input>
+
+    </div>
+
+    <div id="add-replacement">
+
+      <div class="icon-container">
+        <img class="icon" src="svg/keyboard.svg"></img>
+      </div>
+
+      <input id="add-replacement-input" class="add-input" placeholder="Replacement"></input>
+
+    </div>
+
+    <button disabled id="add-save-button" class="save-button">
+      <img id="save-icon" class="icon" src="svg/save.svg"></img>
+    </button>
+
+  </div>
+
+
+  <div id="edit-tab">
+
+    <div id="sorting-menu">
+
+      <button class="sort-button">
+        <img class="icon" src="svg/manage.svg"></img>
+      </button>
+
+      <button class="sort-button">
+        <img class="icon" src="svg/manage.svg"></img>
+      </button>
+
+      <button class="sort-button">
+        <img class="icon" src="svg/manage.svg"></img>
+      </button>
+
+      <button class="sort-button">
+        <img class="icon" src="svg/manage.svg"></img>
+      </button>
+
+    </div>
+
+    <div id="edit-shortcuts-container">
+
+    </div>
+
+  </div>
+
+
+  </div>
+
+</div>

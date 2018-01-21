@@ -1,7 +1,7 @@
 SHORTCUTS = {};
 chrome.storage.sync.get(null, function(storage) {
 	for (var key in storage) {
-		SHORTCUTS[key] = storage[key];
+		SHORTCUTS[key] = storage[key].replacement;
 	}
 });
 

@@ -1,104 +1,34 @@
-﻿SHORTCUTS = {
-"a'": "á",
-"e'": "é",
-"i'": "í",
-"o'": "ó",
-"u'": "ú",
-"y'": "ý",
-"a`": "à",
-"e`": "è",
-"i`": "ì",
-"o`": "ò",
-"u`": "ù",
-"a^": "â",
-"e^": "ê",
-"i^": "î",
-"o^": "ô",
-"u^": "û",
-"a:": "ä",
-"e:": "ë",
-"i:": "ï",
-"o:": "ö",
-"u:": "ü",
-"y:": "ÿ",
-"a~": "ã",
-"n~": "ñ",
-"o~": "õ",
-"c,": "ç",
-"ae": "æ",
-"oe": "œ",
+SHORTCUTS = {};
 
-"d-": "ð",
-"a.": "å",
-"o/": "ø",
-"th": "þ",
-"ss": "ß",
-
-"!": "¡",
-"?": "¿",
-"<": "‹",
-">": "›",
-"<<": "«",
-">>": "»",
-
-".-": "•",
-"m-": "—",
-"n-": "–",
-".": "°",
-
-"+-": "±",
-"!=": "≠",
-"<=": "≤",
-">=": "≥",
-"/": "÷",
-"*": "×",
-
-"^2": "²",
-"^3": "³",
-"1/2": "½",
-"1/4": "¼",
-"3/4": "¾",
-"1/3": "⅓",
-"2/3": "⅔",
-"1/5": "⅕",
-"2/5": "⅖",
-"3/5": "⅗",
-"4/5": "⅘",
-"1/6": "⅙",
-"5/6": "⅚",
-"1/8": "⅛",
-"3/8": "⅜",
-"5/8": "⅝",
-"7/8": "⅞",
-"pi": "Π",
-"mu": "µ",
-
-"$l": "£",
-"$e": "€",
-"$y": "Ұ",
-"$c": "¢",
-"$": "",
-"cmd": "command",
-}
+DATES_CREATED = {};
 
 COLORS = {
 	green : "#00A65D"
 }
 
 SOURCE = {
-	add			: "svg/add.svg",
-	arrow		: "svg/arrow.svg",
-	check		: "svg/check.svg",
+	add				: "svg/add.svg",
+	arrow			: "svg/arrow.svg",
+	check			: "svg/check.svg",
 	clipboard	: "svg/clipboard.svg",
-	date		: "svg/date.svg",
+	date			: "svg/date.svg",
 	deleting	: "svg/delete.svg",
-	equal		: "svg/equal.svg",
-	key			: "svg/key.svg",
+	equal			: "svg/equal.svg",
+	key				: "svg/key.svg",
 	manage		: "svg/manage.svg",
-	name		: "svg/name.svg",
+	name			: "svg/name.svg",
 	options		: "svg/options.svg",
 	settings	: "svg/settings.svg",
-	use			: "svg/use.svg"
+	use				: "svg/use.svg"
+}
+
+function getShortcuts() {
+	chrome.storage.sync.get(null, function(storage) {
+		for (var key in storage) {
+			SHORTCUTS[key] = storage[key].replacement;
+			DATES_CREATED[key] = storage[key].timeCreated;
+		}
+	});
 }
 
 function toolbarTab() {
@@ -136,80 +66,140 @@ function toolbarTab() {
 	shortcutInput.focus();
 }
 
+function addTab() {
+	var addShortcutIconContainer = document.getElementById("add-shortcut-icon-container");
+	var addReplacementIconContainer = document.getElementById("add-replacement-icon-container");
+	var addHashtag = document.getElementById("add-hashtag");
+	var addShortcutInput = document.getElementById("add-shortcut-input");
+	var addReplacementInput = document.getElementById("add-replacement-input");
+	var addSaveButton = document.getElementById("add-save-button");
 
-function shortcutsTab() {
-	var sorted = [];
 
-	var clipboardMenuDiv = document.getElementById("clipboard-menu");
+	document.body.id = "add-body";
 
-	var shortcutsMenuDiv = document.createElement("div");
-	var sortingMenuDiv = document.createElement("div");
+	addShortcutInput.value = "";
+	addReplacementInput.value = "";
 
-	var shortcutSortButton = document.createElement("button");
-	var replacementSortButton = document.createElement("button");
-	var dateSortButton = document.createElement("button");
-	var usesSortButton = document.createElement("button");
+	addShortcutIconContainer.classList.remove("input-valid");
+	addReplacementIconContainer.classList.remove("input-valid");
+	addHashtag.classList.remove("input-valid");
+	addShortcutInput.classList.remove("input-valid");
+	addReplacementInput.classList.remove("input-valid");
 
-	var shortcutSortImage = document.createElement("img");
-	var replacementSortImage = document.createElement("img");
-	var dateSortImage = document.createElement("img");
-	var usesSortImage = document.createElement("img");
+	addShortcutIconContainer.classList.remove("input-invalid");
+	addReplacementIconContainer.classList.remove("input-invalid");
+	addHashtag.classList.remove("input-invalid");
+	addShortcutInput.classList.remove("input-invalid");
+	addReplacementInput.classList.remove("input-invalid");
 
-	var shortcutsList = document.createElement("list");
-	var shortcutEntryDiv = document.createElement("div");
+	addSaveButton.disabled = true;
 
-	clipboardMenuDiv.parentNode.removeChild(clipboardMenuDiv);
 
-	shortcutsMenuDiv.id = "shortcuts-menu";
-	sortingMenuDiv.id = "sorting-menu";
+	addShortcutInput.addEventListener("keyup", function() {
+		validateAddShortcutInput();
+	});
 
-	shortcutSortButton.id = "shortcut-sort-button";
-	replacementSortButton.id = "replacement-sort-button";
-	dateSortButton.id = "date-sort-button";
-	usesSortButton.id = "uses-sort-button";
+	addShortcutInput.addEventListener("change", function() {
+		validateAddShortcutInput();
+	});
 
-	shortcutSortButton.className = "sort-button";
-	replacementSortButton.className = "sort-button";
-	dateSortButton.className = "sort-button";
-	usesSortButton.className = "sort-button";
+	addReplacementInput.addEventListener("keyup", function() {
+		validateAddReplacementInput();
+	});
 
-	shortcutSortButton.title = "";
-	replacementSortButton.title = "";
-	dateSortButton.title = "";
-	usesSortButton.title = "";
+	addReplacementInput.addEventListener("change", function() {
+		validateAddReplacementInput();
+	});
 
-	shortcutSortImage.className = "icon";
-	replacementSortImage.className = "icon";
-	dateSortImage.className = "icon";
-	usesSortImage.className = "icon";
+	addSaveButton.addEventListener("click", function() {
+		addShortcut();
+	});
 
-	shortcutSortImage.src = SOURCE.key;
-	replacementSortImage.src = SOURCE.name;
-	dateSortImage.src = SOURCE.date;
-	usesSortImage.src = SOURCE.use
+}
 
-	for (shortcut in SHORTCUTS) {
-		sorted.push(shortcut);
+function addShortcut() {
+	var shortcut = document.getElementById("add-shortcut-input").value;
+	var replacement = document.getElementById("add-replacement-input").value;
+	var time = new Date().getTime();
+	var newShortcut = {};
+
+	if (shortcut === "" || SHORTCUTS[shortcut]) return;
+
+	SHORTCUTS[shortcut] = replacement;
+
+	newShortcut[shortcut] = {"replacement": replacement, "timeCreated": time };
+	alert(newShortcut.timeCreated);
+	chrome.storage.sync.set(newShortcut);
+
+	addTab();
+}
+
+function editTab() {
+	var editShortcutsContainer = document.getElementById("edit-shortcuts-container");
+	trimElement(editShortcutsContainer);
+
+	document.body.id = "edit-body";
+
+	sortedShortcuts = [];
+
+	for (key in SHORTCUTS) {
+		sortedShortcuts.push({"shortcut": key, "replacement": SHORTCUTS[key], "timeCreated": DATES_CREATED[key]});
 	}
 
+	sortedShortcuts.sort(function(a,b) {return (a.timeCreated < b.timeCreated) ? -1 : 1;});
 
-	shortcutSortButton.appendChild(shortcutSortImage);
-	replacementSortButton.appendChild(replacementSortImage);
-	dateSortButton.appendChild(dateSortImage);
-	usesSortButton.appendChild(usesSortImage);
+	for (var i = 0; i < sortedShortcuts.length; i++) {
 
-	sortingMenuDiv.appendChild(shortcutSortButton);
-	sortingMenuDiv.appendChild(replacementSortButton);
-	sortingMenuDiv.appendChild(dateSortButton);
-	sortingMenuDiv.appendChild(usesSortButton);
+		var shortcutContainer = document.createElement("div");
+		var hashtag = document.createElement("p");
+		var shortcutInput = document.createElement("input");
+		var equals = document.createElement("p");
+		var replacementInput = document.createElement("input");
+		var clipboardButton = document.createElement("button");
+		var deleteButton = document.createElement("button");
+		var clipboardIcon = document.createElement("img");
+		var deleteIcon = document.createElement("img");
+
+		shortcutContainer.className = "edit-shortcut";
+
+		hashtag.className = "edit-hashtag";
+		hashtag.innerHTML = "#";
+
+		shortcutInput.className = "edit-shortcut-input";
+		shortcutInput.setAttribute("type", "text");
+		shortcutInput.setAttribute("spellcheck", "false");
+		shortcutInput.value = sortedShortcuts[i].shortcut;
+
+		equals.className = "edit-equals";
+		equals.innerHTML = "=";
 
 
-	shortcutsMenuDiv.appendChild(sortingMenuDiv);
-	shortcutsMenuDiv.appendChild(shortcutsList);
-	shortcutsMenuDiv.appendChild(shortcutEntryDiv);
+		replacementInput.className = "edit-replacement-input";
+		replacementInput.setAttribute("type", "text");
+		replacementInput.setAttribute("spellcheck", "false");
+		replacementInput.value = sortedShortcuts[i].replacement;
 
-	document.body.appendChild(shortcutsMenuDiv);
+		clipboardButton.className = "edit-button";
+		deleteButton.className = "edit-button";
 
+		clipboardIcon.className = "edit-icon";
+		deleteIcon.className = "edit-icon";
+		clipboardIcon.src = "svg/clipboard.svg";
+		deleteIcon.src = "svg/delete.svg";
+
+		clipboardButton.appendChild(clipboardIcon);
+		deleteButton.appendChild(deleteIcon);
+
+		shortcutContainer.appendChild(hashtag);
+		shortcutContainer.appendChild(shortcutInput);
+		shortcutContainer.appendChild(equals);
+		shortcutContainer.appendChild(replacementInput);
+		shortcutContainer.appendChild(clipboardButton);
+		shortcutContainer.appendChild(deleteButton);
+
+		editShortcutsContainer.appendChild(shortcutContainer);
+
+	}
 }
 
 // If shortcut in input is valid, enable clipboard button and color input border green
@@ -217,22 +207,16 @@ function shortcutsTab() {
 function validShortcut() {
 	value = document.getElementById("shortcut-input").value;
 
-	for (shortcut in SHORTCUTS) {
-		if (value === shortcut) {
-
-			document.getElementById("toolbar-hashtag").style.borderColor = COLORS.green;
-			document.getElementById("shortcut-input").style.borderColor = COLORS.green;
-			document.getElementById("shortcut-input").title = SHORTCUTS[value];
-			document.getElementById("clipboard-button").disabled = false;
-
-			return;
-		}
-
-	document.getElementById("toolbar-hashtag").style.borderColor = null;
-	document.getElementById("shortcut-input").style.borderColor = null;
-	document.getElementById("shortcut-input").title = "";
-	document.getElementById("clipboard-button").disabled = true;
-
+	if (SHORTCUTS[value]) {
+		document.getElementById("toolbar-hashtag").classList.add("input-valid");
+		document.getElementById("shortcut-input").classList.add("input-valid");
+		document.getElementById("shortcut-input").title = SHORTCUTS[value];
+		document.getElementById("clipboard-button").disabled = false;
+	} else {
+		document.getElementById("toolbar-hashtag").classList.remove("input-valid");
+		document.getElementById("shortcut-input").classList.remove("input-valid");
+		document.getElementById("shortcut-input").title = "";
+		document.getElementById("clipboard-button").disabled = true;
 	}
 }
 
@@ -262,15 +246,15 @@ function copyToClipboard() {
 function optionsPage() {
 	var toolbarMenu = document.getElementById("toolbar-menu");
 	var options = document.getElementById("options");
-	var editTab = document.getElementById("edit-tab");
+	var edit = document.getElementById("edit-tab");
 	var addTabButton = document.getElementById("add-tab-button");
 	var editTabButton = document.getElementById("edit-tab-button");
 
-	document.body.id = "add-body";
+	addTab();
 
 	toolbarMenu.style.display = "none";
 	options.style.display = null;
-	editTab.style.display = "none";
+	edit.style.display = "none";
 
 
 	addTabButton.addEventListener("click", function() {
@@ -278,6 +262,7 @@ function optionsPage() {
 		document.getElementById("edit-tab-button").disabled = false;
 		document.getElementById("add-tab").style.display = null;
 		document.getElementById("edit-tab").style.display = "none";
+		addTab();
 	});
 
 	editTabButton.addEventListener("click", function() {
@@ -285,10 +270,90 @@ function optionsPage() {
 		document.getElementById("add-tab-button").disabled = false;
 		document.getElementById("edit-tab").style.display = null;
 		document.getElementById("add-tab").style.display = "none";
+		editTab();
 	});
-
-
 
 }
 
+// Removes all child elements of an element
+function trimElement(element) {
+  while (element.lastChild) {
+    element.removeChild(element.lastChild);
+  }
+}
+
+function validateAddShortcutInput() {
+
+	var addShortcutIconContainer = document.getElementById("add-shortcut-icon-container");
+	var addShortcutInput = document.getElementById("add-shortcut-input");
+	var hashtag = document.getElementById("add-hashtag");
+
+	if (addShortcutInput.value === "") {
+		addShortcutIconContainer.classList.remove("input-valid");
+    addShortcutIconContainer.classList.remove("input-invalid");
+    addShortcutInput.classList.remove("input-valid");
+    addShortcutInput.classList.remove("input-invalid");
+		hashtag.classList.remove("input-valid");
+    hashtag.classList.remove("input-invalid");
+  } else if (SHORTCUTS[addShortcutInput.value] || containsUppercaseLetter(addShortcutInput.value)) {
+		addShortcutIconContainer.classList.add("input-invalid");
+    addShortcutIconContainer.classList.remove("input-valid");
+    addShortcutInput.classList.add("input-invalid");
+    addShortcutInput.classList.remove("input-valid");
+		hashtag.classList.add("input-invalid");
+    hashtag.classList.remove("input-valid");
+  } else {
+		addShortcutIconContainer.classList.add("input-valid");
+    addShortcutIconContainer.classList.remove("input-invalid");
+    addShortcutInput.classList.add("input-valid");
+    addShortcutInput.classList.remove("input-invalid");
+		hashtag.classList.add("input-valid");
+    hashtag.classList.remove("input-invalid");
+  }
+
+	validateAddInputs();
+
+}
+
+function validateAddReplacementInput() {
+
+	var addReplacementIconContainer = document.getElementById("add-replacement-icon-container");
+	var addReplacementInput = document.getElementById("add-replacement-input");
+
+	if (addReplacementInput.value.length > 0) {
+		addReplacementIconContainer.classList.add("input-valid");
+		addReplacementInput.classList.add("input-valid");
+	} else {
+		addReplacementIconContainer.classList.remove("input-valid");
+		addReplacementInput.classList.remove("input-valid");
+	}
+
+	validateAddInputs();
+
+}
+
+function validateAddInputs() {
+  var addShortcutInput = document.getElementById("add-shortcut-input");
+  var addReplacementInput = document.getElementById("add-replacement-input");
+  var addSaveButton = document.getElementById("add-save-button");
+
+  if (addShortcutInput.classList.contains("input-valid") && addReplacementInput.classList.contains("input-valid")) {
+    addSaveButton.disabled = false;
+  } else {
+    addSaveButton.disabled = true;
+  }
+
+}
+
+function containsUppercaseLetter(word) {
+	for (var i = 0; i < word.length; i++) {
+		var c = word[i];
+			if (c.toUpperCase() === c && c.toLowerCase() !== c) {
+				return true;
+			}
+		}
+		return false;
+}
+
+getShortcuts();
 toolbarTab();
