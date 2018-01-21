@@ -43,7 +43,7 @@ function toolbarTab() {
 
 	toolbarMenuDiv.addEventListener("keydown", function(e) {
 		// If key is Ctrl
-		if (e.which === 17) copyToClipboard();
+		if (e.which === 17) copyToolbarReplacement();
 	});
 
 	optionsButton.addEventListener("click", function() {
@@ -52,7 +52,7 @@ function toolbarTab() {
 
 	shortcutInput.addEventListener("keypress", function(e) {
 		// If key is Enter
-		e.which === 13 ? copyToClipboard() : validShortcut();
+		e.which === 13 ? copyToolbarReplacement() : validShortcut();
 	});
 
 	shortcutInput.addEventListener("keyup", function() {
@@ -60,7 +60,7 @@ function toolbarTab() {
 	});
 
 	clipboardButton.addEventListener("click", function(e) {
-		copyToClipboard();
+		copyToolbarReplacement();
 	});
 
 	shortcutInput.focus();
@@ -187,6 +187,20 @@ function editTab() {
 		clipboardIcon.src = "svg/clipboard.svg";
 		deleteIcon.src = "svg/delete.svg";
 
+
+
+		deleteButton.addEventListener("click", function() {
+			var shortcut = this.parentNode.childNodes[1].value;
+			delete SHORTCUTS[shortcut];
+			delete DATES_CREATED[shortcut];
+			this.parentNode.remove();
+			chrome.storage.sync.remove(shortcut);
+		});
+
+		clipboardButton.addEventListener("click", function() {
+			copyEditReplacement(this);
+		});
+
 		clipboardButton.appendChild(clipboardIcon);
 		deleteButton.appendChild(deleteIcon);
 
@@ -220,26 +234,39 @@ function validShortcut() {
 	}
 }
 
+
+function copyToolbarReplacement() {
+	if (document.getElementById("clipboard-button").disabled === false) {
+		var value = SHORTCUTS[document.getElementById("shortcut-input").value]
+		copyToClipboard(value);
+		window.close();
+	}
+}
+
+function copyEditReplacement(clipboardButton) {
+	copyToClipboard(clipboardButton.parentNode.childNodes[3].value);
+}
+
 // Copies the shortcut replacement to the user's clipboard-button
 // To do this, creates a temporary textarea and appends it to the popup, places the text in it,
 // copies the text to the clipboard, and then deletes the textarea
-function copyToClipboard() {
-	if (document.getElementById("clipboard-button").disabled === false) {
-		var temp = document.createElement("textarea");
-		var match = document.getElementById("shortcut-input").value;
+function copyToClipboard(value) {
+	var temp = document.createElement("textarea");
 
-		document.body.appendChild(temp);
-		temp.value = SHORTCUTS[match];
+	temp.style.position = "absolute";
+	temp.style.top = "0";
+	temp.style.width = "0";
+	temp.style.height = "0";
 
-		temp.focus();
-		temp.select();
+	document.body.appendChild(temp);
+	temp.value = value;
 
-		document.execCommand("Copy");
-		temp.remove();
+	temp.focus();
+	temp.select();
 
-		window.close();
+	document.execCommand("Copy");
+	temp.remove();
 
-	}
 }
 
 
