@@ -4,9 +4,9 @@
 :root {
 	--white			: #FFFFFF;
 	--gray-light	: #EEEEEE;
-	--gray			: #A9A9A9;
 	--gray-dark		: #9A9A9A;
 	--blue-light	: #75A4F4;
+	--gray			: #A9A9A9;
 	--blue			: #4386FA;
 	--blue-dark		: #2B74F2;
 	--red			: #E74C3C;
@@ -16,12 +16,19 @@
 	--green			: #00A65D;
 }
 
+::-webkit-input-placeholder {
+    color: var(--gray);
+    opacity: 0.5;
+}
+
 html {
 	-webkit-user-select: none;
+	-webkit-user-drag: none;
 }
 
 body {
 	margin: 0;
+	-webkit-user-drag: none;
 }
 
 input, p {
@@ -55,7 +62,7 @@ input, p {
 }
 
 
-.toolbar-button, .menu-button, .sort-button, .save-button, .icon-container {
+.toolbar-button, .menu-button, .sort-button, .save-button, .icon-container, #default-button {
 	height: 50px;
 	float: left;
 	background-color: var(--green);
@@ -68,7 +75,7 @@ input, p {
 	width: 50px;
 }
 
-.toolbar-button, .menu-button, .sort-button {
+.toolbar-button, .menu-button, .sort-button, .save-button, #default-button {
 	cursor: pointer;
 }
 
@@ -84,7 +91,19 @@ input, p {
 	width: 100%;
 }
 
-.toolbar-button:hover, .toolbar-button:focus, .menu-button:hover, .menu-button:focus, .sort-button:hover, .sort-button:focus, .save-button:hover, .save-button:focus {
+#default-button {
+	font-family: Arial;
+	font-size: 20px;
+	color: var(--white);
+	text-align: center;
+	line-height: 50px;
+	margin-left: 12.5%;
+	margin-right: 12.5%;
+	margin-top: 50px;
+	width: 75%;
+}
+
+.toolbar-button:hover, .toolbar-button:focus, .menu-button:hover, .menu-button:focus, .sort-button:hover, .sort-button:focus, .save-button:hover, .save-button:focus, #default-button:hover, #default-button:focus {
 	background-color: var(--green-light);
 }
 
@@ -333,4 +352,19 @@ input.input-valid, p.input-valid {
 
 input.input-invalid, p.input-invalid {
 	border-color: var(--red);
+}
+
+.empty-heading {
+	font-family: Arial;
+	font-size: 24px;
+	color: var(--green);
+	text-align: center;
+	margin-top: 75px;
+}
+
+.empty-text {
+	font-family: Arial;
+	font-size: 16px;
+	color: var(--gray);
+	text-align: center;
 }

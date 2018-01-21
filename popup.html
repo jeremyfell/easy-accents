@@ -8,15 +8,15 @@
 		<div id="toolbar-menu">
 
 			<button id="options-button" class="toolbar-button" title="Edit and add shortcuts">
-				<img id="options-icon" class="icon" src="svg/options.svg"></img>
+				<img id="options-icon" class="icon" src="svg/options.svg" draggable="false"></img>
 			</button>
 
 			<p id="toolbar-hashtag" class="hashtag">#</p>
 
-			<input id="shortcut-input" type="text" spellcheck="false"></input>
+			<input id="shortcut-input" type="text" spellcheck="false" maxlength="1000"></input>
 
 			<button disabled id="clipboard-button" class="toolbar-button" title="Copy shortcut's replacement to clipboard">
-				<img id="clipboard-icon" class="icon" src="svg/clipboard.svg"></img>
+				<img id="clipboard-icon" class="icon" src="svg/clipboard.svg" draggable="false"></img>
 			</button>
 
 		</div>
@@ -26,50 +26,71 @@
 			<div id="options-menu">
 
 				<button id="edit-tab-button" class="menu-button" title="Edit shortcuts">
-					<img id="edit-icon" src="svg/edit.svg"></img>
+					<img id="edit-icon" src="svg/edit.svg" draggable="false"></img>
 				</button>
 
 				<button disabled id="add-tab-button" class="menu-button" title="Add shortcuts">
-					<img id="add-icon" src="svg/add.svg"><img>
+					<img id="add-icon" src="svg/add.svg" draggable="false"><img>
 				</button>
 
 			</div>
 
 			<div id="add-tab">
 
-				<div id="add-shortcut">
+				<div id="add-tab-container">
 
-					<div id="add-shortcut-icon-container" class="icon-container">
-						<img class="icon" src="svg/key.svg"></img>
+					<div id="add-shortcut">
+
+						<div id="add-shortcut-icon-container" class="icon-container">
+							<img class="icon" src="svg/key.svg" draggable="false"></img>
+						</div>
+
+						<p id="add-hashtag" class="hashtag">#</p>
+
+						<input id="add-shortcut-input" class="add-input" placeholder="Shortcut" spellcheck="false" maxlength="1000"></input>
+
 					</div>
 
-					<p id="add-hashtag" class="hashtag">#</p>
+					<div id="add-replacement">
 
-					<input id="add-shortcut-input" class="add-input" placeholder="Shortcut" spellcheck="false"></input>
+						<div id="add-replacement-icon-container" class="icon-container">
+							<img class="icon" src="svg/keyboard.svg" draggable="false"></img>
+						</div>
+
+						<input id="add-replacement-input" class="add-input" placeholder="Replacement" spellcheck="false" maxlength="1000"></input>
+
+					</div>
+
+					<button disabled id="add-save-button" class="save-button">
+						<img id="save-icon" class="icon" src="svg/save.svg" draggable="false"></img>
+					</button>
 
 				</div>
 
-				<div id="add-replacement">
-
-					<div id="add-replacement-icon-container" class="icon-container">
-						<img class="icon" src="svg/keyboard.svg"></img>
-					</div>
-
-					<input id="add-replacement-input" class="add-input" placeholder="Replacement" spellcheck="false"></input>
-
+				<div id="storage-capacity-reached">
+					<h1 class="empty-heading">You have reached storage capacity</h1>
+					<p class="empty-text">To add any more shortcuts, you must first delete some from the Edit tab</p>
 				</div>
-
-				<button disabled id="add-save-button" class="save-button">
-					<img id="save-icon" class="icon" src="svg/save.svg"></img>
-				</button>
 
 			</div>
 
 
+
+
 			<div id="edit-tab">
 
-				<div id="edit-shortcuts-container">
+				<div id="edit-tab-container">
 
+					<div id="edit-shortcuts-container">
+
+					</div>
+
+				</div>
+
+				<div id="no-saved-shortcuts">
+					<h1 class="empty-heading">You don't have any shortcuts yet!</h1>
+					<p class="empty-text">That's okay, you can use the Add tab to create one.<br>Simply enter a shortcut in the first input, the character/text\n that will replace it in the second input, and then click the save button.</p>
+					<button id="default-button">Or click here to add some default shortcuts</button>
 				</div>
 
 			</div>
