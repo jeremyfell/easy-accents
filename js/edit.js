@@ -87,6 +87,7 @@ function restoreDefaults() {
 	defaults = {};
 
 	for (key in SHORTCUTS) {
+		alert(String.fromCharCode(parseInt(SHORTCUTS[key])));
 		defaults[key] = {};
 		defaults[key].replacement = SHORTCUTS[key];
 		defaults[key].timeCreated = time;

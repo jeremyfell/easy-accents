@@ -1,6 +1,0 @@
-Chrome extension icons
-
-Handle exceeding max write operations per hour
-Explanation somewhere of how capital letters cannot be used, but that capital letters are generated automatically
-
-Potentially add support for contentEditable elements

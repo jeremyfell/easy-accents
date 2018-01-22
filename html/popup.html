@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<link href="style.css" rel="stylesheet" id="popup">
+		<link href="../css/style.css" rel="stylesheet" id="popup">
 	</head>
 
 	<body>
@@ -8,7 +8,7 @@
 		<div id="toolbar-menu">
 
 			<button id="options-button" class="toolbar-button" title="Edit and add shortcuts">
-				<img id="options-icon" class="icon" src="svg/options.svg" draggable="false"></img>
+				<img id="options-icon" class="icon" src="../svg/options.svg" draggable="false"></img>
 			</button>
 
 			<p id="toolbar-hashtag" class="hashtag">#</p>
@@ -16,7 +16,7 @@
 			<input id="shortcut-input" type="text" spellcheck="false" maxlength="1000"></input>
 
 			<button disabled id="clipboard-button" class="toolbar-button" title="Copy shortcut's replacement to clipboard">
-				<img id="clipboard-icon" class="icon" src="svg/clipboard.svg" draggable="false"></img>
+				<img id="clipboard-icon" class="icon" src="../svg/clipboard.svg" draggable="false"></img>
 			</button>
 
 		</div>
@@ -26,11 +26,11 @@
 			<div id="options-menu">
 
 				<button id="edit-tab-button" class="menu-button" title="Edit shortcuts">
-					<img id="edit-icon" src="svg/edit.svg" draggable="false"></img>
+					<img id="edit-icon" src="../svg/edit.svg" draggable="false"></img>
 				</button>
 
 				<button disabled id="add-tab-button" class="menu-button" title="Add shortcuts">
-					<img id="add-icon" src="svg/add.svg" draggable="false"><img>
+					<img id="add-icon" src="../svg/add.svg" draggable="false"><img>
 				</button>
 
 			</div>
@@ -42,7 +42,7 @@
 					<div id="add-shortcut">
 
 						<div id="add-shortcut-icon-container" class="icon-container">
-							<img class="icon" src="svg/key.svg" draggable="false"></img>
+							<img class="icon" src="../svg/key.svg" draggable="false"></img>
 						</div>
 
 						<p id="add-hashtag" class="hashtag">#</p>
@@ -54,7 +54,7 @@
 					<div id="add-replacement">
 
 						<div id="add-replacement-icon-container" class="icon-container">
-							<img class="icon" src="svg/keyboard.svg" draggable="false"></img>
+							<img class="icon" src="../svg/keyboard.svg" draggable="false"></img>
 						</div>
 
 						<input id="add-replacement-input" class="add-input" placeholder="Replacement" spellcheck="false" maxlength="1000"></input>
@@ -62,7 +62,7 @@
 					</div>
 
 					<button disabled id="add-save-button" class="save-button">
-						<img id="save-icon" class="icon" src="svg/save.svg" draggable="false"></img>
+						<img id="save-icon" class="icon" src="../svg/save.svg" draggable="false"></img>
 					</button>
 
 				</div>
@@ -103,6 +103,15 @@
 
 	</body>
 
-	<script src="popup.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/global.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/helpers.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/validation.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/shortcuts.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/clipboard.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/toolbar.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/add.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/edit.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/events.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="../js/initial.js"></script>
 
 </html>
