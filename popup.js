@@ -109,7 +109,7 @@ function restoreDefaults() {
 
 	defaults[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
 
-	chrome.storage.sync.set(defaults);
+	chrome.storage.sync.set(defaults, function(entry) {errorCheck(entry)});
 
 	editTab();
 }
@@ -136,7 +136,7 @@ function getShortcuts() {
 			CURRENT_SHORTCUTS = DEFAULT_SHORTCUT_COUNT;
 			CURRENT_CHARACTERS = DEFAULT_CHARACTER_COUNT;
 
-			chrome.storage.sync.set(storageCount);
+			chrome.storage.sync.set(storageCount, function(entry) {errorCheck(entry)});
 		}
 
 	});
@@ -210,7 +210,7 @@ function saveShortcut(shortcut, replacement) {
 	storageChanges[shortcut] = {"replacement": replacement, "timeCreated": time };
 	storageChanges[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
 
-	chrome.storage.sync.set(storageChanges);
+	chrome.storage.sync.set(storageChanges, function(entry) {errorCheck(entry)});
 
 	addTab();
 }
@@ -381,6 +381,16 @@ function editTab() {
 	}
 }
 
+function errorCheck(entry) {
+	if (chrome.runtime.lastError) {
+		if (chrome.runtime.lastError.message === "This request exceeds the MAX_WRITE_OPERATIONS_PER_MINUTE quota.") {
+			alert("Too many save or delete operations have been performed in the last minute.\nChrome can only perform 120 operations a minute (2 per second).\nJust wait a minute, and try again.");
+		} else if (chrome.runtime.lastError.message === "This request exceeds the MAX_WRITE_OPERATIONS_PER_HOUR quota.") {
+			alert("Too many save or delete operations have been performed in the last hour.\nChrome can only perform 1800 operations an hour (1 every 2 seconds).\nUnfortunately, you must wait an hour, and try again.");
+		}
+	}
+}
+
 function deleteShortcut(shortcut) {
 	var characters = (shortcut.length + SHORTCUTS[shortcut].length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
 	var storageChanges = {};
@@ -393,7 +403,7 @@ function deleteShortcut(shortcut) {
 	storageChanges[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
 
 	chrome.storage.sync.set(storageChanges);
-	chrome.storage.sync.remove(shortcut);
+	chrome.storage.sync.remove(shortcut, function(entry) {errorCheck(entry)});
 
 }
 
