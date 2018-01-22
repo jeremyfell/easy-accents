@@ -78,21 +78,22 @@ function restoreDefaults() {
 		"$e": "€",
 		"$y": "Ұ",
 		"$c": "¢",
-		"$": "",
-		"cmd": "command",
+		"keyword": "You can also create shortcuts for text containing up to 1000 characters",
 	}
 
 	var time = new Date().getTime();
+	var i = 0;
 
 	defaults = {};
 
 	for (key in SHORTCUTS) {
-		alert(String.fromCharCode(parseInt(SHORTCUTS[key])));
 		defaults[key] = {};
 		defaults[key].replacement = SHORTCUTS[key];
-		defaults[key].timeCreated = time;
+		defaults[key].timeCreated = time - i;
+		TIMES_CREATED[key] = time - i;
 		CURRENT_SHORTCUTS++;
 		CURRENT_CHARACTERS += (key.length + SHORTCUTS[key].length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
+		i++;
 	}
 
 	defaults[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
