@@ -1,0 +1,3 @@
+addPopupEventListeners();
+getShortcuts();
+toolbarTab();
