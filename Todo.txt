@@ -1,5 +1,3 @@
-Edit and validate shortcut and replacement entries in the edit tab
-
 Chrome extension icons
 
 Handle exceeding max write operations per hour

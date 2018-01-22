@@ -9,7 +9,7 @@ DEFAULT_SHORTCUT_COUNT = 1;
 DEFAULT_CHARACTER_COUNT = 65;
 
 SHORTCUTS = {};
-DATES_CREATED = {};
+TIMES_CREATED = {};
 
 function restoreDefaults() {
 	SHORTCUTS = {
@@ -100,10 +100,14 @@ function restoreDefaults() {
 	defaults = {};
 
 	for (key in SHORTCUTS) {
-		defaults[key] = {}
-		defaults[key].replacement = SHORTCUTS[key].replacement;
-		defaults[key].timeCreated = SHORTCUTS[key].timeCreated;
+		defaults[key] = {};
+		defaults[key].replacement = SHORTCUTS[key];
+		defaults[key].timeCreated = time;
+		CURRENT_SHORTCUTS++;
+		CURRENT_CHARACTERS += (key.length + SHORTCUTS[key].length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
 	}
+
+	defaults[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
 
 	chrome.storage.sync.set(defaults);
 
@@ -118,7 +122,7 @@ function getShortcuts() {
 				CURRENT_CHARACTERS = storage[key].characterCount;
 			} else {
 				SHORTCUTS[key] = storage[key].replacement;
-				DATES_CREATED[key] = storage[key].timeCreated;
+				TIMES_CREATED[key] = storage[key].timeCreated;
 			}
 		}
 
@@ -190,16 +194,15 @@ function addTab() {
 
 }
 
-function addShortcut() {
-	var shortcut = document.getElementById("add-shortcut-input").value;
-	var replacement = document.getElementById("add-replacement-input").value;
+function saveShortcut(shortcut, replacement) {
 	var characters = (shortcut.length + replacement.length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
 	var time = new Date().getTime();
 	var storageChanges = {};
 
-	if (shortcut === "" || SHORTCUTS[shortcut]) return;
+	if (shortcut === "") return;
 
 	SHORTCUTS[shortcut] = replacement;
+	TIMES_CREATED[shortcut] = time;
 
 	CURRENT_SHORTCUTS++;
 	CURRENT_CHARACTERS += characters;
@@ -233,10 +236,10 @@ function editTab() {
 	sortedShortcuts = [];
 
 	for (key in SHORTCUTS) {
-		sortedShortcuts.push({"shortcut": key, "replacement": SHORTCUTS[key], "timeCreated": DATES_CREATED[key]});
+		sortedShortcuts.push({"shortcut": key, "replacement": SHORTCUTS[key], "timeCreated": TIMES_CREATED[key]});
 	}
 
-	sortedShortcuts.sort(function(a,b) {return (a.timeCreated < b.timeCreated) ? -1 : 1;});
+	sortedShortcuts.sort(function(a,b) {return (a.timeCreated > b.timeCreated) ? -1 : 1;});
 
 	for (var i = 0; i < sortedShortcuts.length; i++) {
 
@@ -283,6 +286,74 @@ function editTab() {
 		clipboardIcon.draggable = false;
 		deleteIcon.draggable = false;
 
+		shortcutInput.addEventListener("focus", function() {
+			this.dataset.oldShortcut = this.value;
+		});
+
+		shortcutInput.addEventListener("keypress", function(e) {
+			if (e.which === 13) this.blur();
+		});
+
+		shortcutInput.addEventListener("input", function() {
+			if (this.value === "") {
+		    this.classList.remove("input-invalid");
+				this.parentNode.childNodes[0].classList.remove("input-invalid");
+				this.title = "Shortcut";
+
+		  } else if ((this.value !== this.dataset.oldShortcut && SHORTCUTS[this.value]) || containsUppercaseLetter(this.value)) {
+
+				this.classList.add("input-invalid");
+				this.parentNode.childNodes[0].classList.add("input-invalid");
+				this.title = (SHORTCUTS[this.value] ? "Shortcut already exists" : "Cannot use uppercase letters in shortcut.\nCapital letter versions of replacements are automatically created.\nSimply use the corresponding shortcut, with any letter capitalized.");
+
+		  } else {
+		    this.classList.remove("input-invalid");
+				this.parentNode.childNodes[0].classList.remove("input-invalid");
+		    this.title = "Shortcut";
+		  }
+		});
+
+		shortcutInput.addEventListener("change", function() {
+			if (this.value === "" || SHORTCUTS[this.value] || containsUppercaseLetter(this.value)) {
+
+				// Shorcut is invalid, revert to previous shortcut
+				this.value = this.dataset.oldShortcut;
+				this.classList.remove("input-invalid");
+				this.parentNode.childNodes[0].classList.remove("input-invalid");
+				this.title = "Shortcut";
+
+			} else {
+
+				// Shortcut is valid, delete old shortcut and add new one
+				var shortcut = this.value;
+				var replacement = this.parentNode.childNodes[3].value;
+				deleteShortcut(this.dataset.oldShortcut);
+				saveShortcut(shortcut, replacement);
+
+			}
+		});
+
+
+		replacementInput.addEventListener("focus", function() {
+			this.dataset.oldReplacement = this.value;
+		});
+
+		replacementInput.addEventListener("keypress", function(e) {
+			if (e.which === 13) this.blur();
+		});
+
+		replacementInput.addEventListener("change", function() {
+			if (this.value === "") {
+				this.value = this.dataset.oldReplacement;
+			} else {
+				var shortcut = this.parentNode.childNodes[1].value;
+				var replacement = this.value;
+				CURRENT_SHORTCUTS--;
+				CURRENT_CHARACTERS -= (shortcut.length + this.dataset.oldReplacement.length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
+				saveShortcut(shortcut, replacement);
+			}
+		});
+
 
 		deleteButton.addEventListener("click", function() {
 			deleteShortcut(this.parentNode.childNodes[1].value);
@@ -311,9 +382,19 @@ function editTab() {
 }
 
 function deleteShortcut(shortcut) {
+	var characters = (shortcut.length + SHORTCUTS[shortcut].length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
+	var storageChanges = {};
 	delete SHORTCUTS[shortcut];
-	delete DATES_CREATED[shortcut];
+	delete TIMES_CREATED[shortcut];
+
+	CURRENT_SHORTCUTS--;
+	CURRENT_CHARACTERS -= characters;
+
+	storageChanges[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
+
+	chrome.storage.sync.set(storageChanges);
 	chrome.storage.sync.remove(shortcut);
+
 }
 
 // If shortcut in input is valid, enable clipboard button and color input border green
@@ -413,7 +494,7 @@ function validateAddShortcutInput() {
 		hashtag.classList.add("input-invalid");
     hashtag.classList.remove("input-valid");
 
-		addShortcutIconContainer.title = (SHORTCUTS[addShortcutInput.value] ? "Shortcut already exists" : "Cannot use uppercase letters in shortcut");
+		addShortcutIconContainer.title = (SHORTCUTS[addShortcutInput.value] ? "Shortcut already exists" : "Cannot use uppercase letters in shortcut.\nCapital letter versions of replacements are automatically created.\nSimply use the corresponding shortcut, with any letter capitalized.");
 
   } else {
 		addShortcutIconContainer.classList.add("input-valid");
@@ -551,7 +632,9 @@ function addPopupEventListeners() {
 	});
 
 	addSaveButton.addEventListener("click", function() {
-		addShortcut();
+		var shortcut = document.getElementById("add-shortcut-input").value;
+		var replacement = document.getElementById("add-replacement-input").value;
+		saveShortcut(shortcut, replacement);
 	});
 
 	///////////////
