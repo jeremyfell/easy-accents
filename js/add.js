@@ -14,6 +14,7 @@ function addTab() {
 
 	document.body.id = "add-body";
 
+	// If the maximum chrome sync storage has been reached, display a message, and disable adding new shortcuts
 	if (CURRENT_SHORTCUTS > MAX_SHORTCUTS || CURRENT_CHARACTERS > MAX_CHARACTERS) {
 		addTabContainer.style.display = "none";
 		storageCapacityReached.style.display = null;

@@ -1,4 +1,4 @@
-// If shortcut in input is valid, enable clipboard button and color input border green
+// If shortcut in input is valid, enable clipboard button and change input border color to green
 // Otherwise, disable clipboard button
 function validShortcut() {
 	value = document.getElementById("shortcut-input").value;
@@ -30,7 +30,7 @@ function validateAddShortcutInput() {
     addShortcutInput.classList.remove("input-invalid");
 		hashtag.classList.remove("input-valid");
     hashtag.classList.remove("input-invalid");
-  } else if (SHORTCUTS[addShortcutInput.value] || containsUppercaseLetter(addShortcutInput.value)) {
+  } else if (SHORTCUTS[addShortcutInput.value] || containsUppercaseLetter(addShortcutInput.value) || addShortcutInput.value.indexOf("#") !== -1) {
 		addShortcutIconContainer.classList.add("input-invalid");
     addShortcutIconContainer.classList.remove("input-valid");
     addShortcutInput.classList.add("input-invalid");

@@ -1,3 +1,4 @@
+// Copies the replacement for the shortcut entered in the toolbar input, to the user's clipboard
 function copyToolbarReplacement() {
 	if (document.getElementById("clipboard-button").disabled === false) {
 		var shortcut = document.getElementById("shortcut-input").value;
@@ -7,6 +8,7 @@ function copyToolbarReplacement() {
 	}
 }
 
+// Copies the replacement for the shortcut entered in an edit input, to the user's clipboard
 function copyEditReplacement(clipboardButton) {
 	copyToClipboard(clipboardButton.parentNode.childNodes[3].value);
 }

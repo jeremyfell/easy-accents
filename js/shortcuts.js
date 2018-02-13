@@ -1,3 +1,4 @@
+// Fetches all shortcuts from chrome sync storage
 function getShortcuts() {
 	chrome.storage.sync.get(null, function(storage) {
 		for (var key in storage) {
@@ -6,12 +7,12 @@ function getShortcuts() {
 				CURRENT_CHARACTERS = storage[key].characterCount;
 			} else {
 				SHORTCUTS[key] = storage[key].replacement;
-				TIMES_CREATED[key] = storage[key].timeCreated;
+				TIME_CREATED[key] = storage[key].timeCreated;
 			}
 		}
 
 		if (!storage[STORAGE_KEY]) {
-			var storageCount = {}
+			var storageCount = {};
 			storageCount[STORAGE_KEY] = {
 				shortcutCount: DEFAULT_SHORTCUT_COUNT,
 				characterCount: DEFAULT_CHARACTER_COUNT
@@ -26,6 +27,8 @@ function getShortcuts() {
 	});
 }
 
+
+// Saves shortcut to chrome sync storage
 function saveShortcut(shortcut, replacement) {
 	var characters = (shortcut.length + replacement.length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
 	var time = new Date().getTime();
@@ -34,29 +37,40 @@ function saveShortcut(shortcut, replacement) {
 	if (shortcut === "") return;
 
 	SHORTCUTS[shortcut] = replacement;
-	TIMES_CREATED[shortcut] = time;
+	TIME_CREATED[shortcut] = time;
 
 	CURRENT_SHORTCUTS++;
 	CURRENT_CHARACTERS += characters;
 
-	storageChanges[shortcut] = {"replacement": replacement, "timeCreated": time };
-	storageChanges[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
+	storageChanges[shortcut] = {
+		"replacement": replacement,
+		"timeCreated": time
+	};
+
+	storageChanges[STORAGE_KEY] = {
+		"shortcutCount" : CURRENT_SHORTCUTS,
+		"characterCount": CURRENT_CHARACTERS
+	};
 
 	chrome.storage.sync.set(storageChanges, function(entry) {errorCheck(entry)});
 
 	addTab();
 }
 
+// Removes shortcut from chrome sync storage
 function deleteShortcut(shortcut) {
 	var characters = (shortcut.length + SHORTCUTS[shortcut].length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
 	var storageChanges = {};
 	delete SHORTCUTS[shortcut];
-	delete TIMES_CREATED[shortcut];
+	delete TIME_CREATED[shortcut];
 
 	CURRENT_SHORTCUTS--;
 	CURRENT_CHARACTERS -= characters;
 
-	storageChanges[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
+	storageChanges[STORAGE_KEY] = {
+		"shortcutCount" : CURRENT_SHORTCUTS,
+		"characterCount": CURRENT_CHARACTERS
+	};
 
 	chrome.storage.sync.set(storageChanges);
 	chrome.storage.sync.remove(shortcut, function(entry) {errorCheck(entry)});

@@ -1,3 +1,4 @@
+// Restores all shortcuts to a set of default shortcuts and replacements
 function restoreDefaults() {
 	SHORTCUTS = {
 		"a'": "á",
@@ -90,13 +91,16 @@ function restoreDefaults() {
 		defaults[key] = {};
 		defaults[key].replacement = SHORTCUTS[key];
 		defaults[key].timeCreated = time - i;
-		TIMES_CREATED[key] = time - i;
+		TIME_CREATED[key] = time - i;
 		CURRENT_SHORTCUTS++;
 		CURRENT_CHARACTERS += (key.length + SHORTCUTS[key].length) * BYTE_MULTIPLIER + SHORTCUT_OVERHEAD;
 		i++;
 	}
 
-	defaults[STORAGE_KEY] = {"shortcutCount" : CURRENT_SHORTCUTS, "characterCount": CURRENT_CHARACTERS};
+	defaults[STORAGE_KEY] = {
+		"shortcutCount" : CURRENT_SHORTCUTS,
+		"characterCount": CURRENT_CHARACTERS
+	};
 
 	chrome.storage.sync.set(defaults, function(entry) {errorCheck(entry)});
 
@@ -124,7 +128,7 @@ function editTab() {
 	sortedShortcuts = [];
 
 	for (key in SHORTCUTS) {
-		sortedShortcuts.push({"shortcut": key, "replacement": SHORTCUTS[key], "timeCreated": TIMES_CREATED[key]});
+		sortedShortcuts.push({"shortcut": key, "replacement": SHORTCUTS[key], "timeCreated": TIME_CREATED[key]});
 	}
 
 	sortedShortcuts.sort(function(a,b) {return (a.timeCreated > b.timeCreated) ? -1 : 1;});
@@ -188,7 +192,7 @@ function editTab() {
 				this.parentNode.childNodes[0].classList.remove("input-invalid");
 				this.title = "Shortcut";
 
-		  } else if ((this.value !== this.dataset.oldShortcut && SHORTCUTS[this.value]) || containsUppercaseLetter(this.value)) {
+		  } else if ((this.value !== this.dataset.oldShortcut && SHORTCUTS[this.value]) || containsUppercaseLetter(this.value) || this.value.indexOf("#") !== -1) {
 
 				this.classList.add("input-invalid");
 				this.parentNode.childNodes[0].classList.add("input-invalid");
@@ -202,7 +206,7 @@ function editTab() {
 		});
 
 		shortcutInput.addEventListener("change", function() {
-			if (this.value === "" || SHORTCUTS[this.value] || containsUppercaseLetter(this.value)) {
+			if (this.value === "" || SHORTCUTS[this.value] || containsUppercaseLetter(this.value) || this.value.indexOf("#") !== -1) {
 
 				// Shorcut is invalid, revert to previous shortcut
 				this.value = this.dataset.oldShortcut;

@@ -65,11 +65,11 @@ function addAddTabEventListeners() {
 	});
 
 	addShortcutInput.addEventListener("keypress", function(e) {
-		if (e.which === 13) document.getElementById("add-replacement-input").select();
+		if (e.which === 13 && this.classList.contains("input-valid")) document.getElementById("add-replacement-input").select();
 	});
 
 	addReplacementInput.addEventListener("keypress", function(e) {
-		if (e.which === 13) document.getElementById("add-save-button").click();
+		if (e.which === 13 && this.classList.contains("input-valid")) document.getElementById("add-save-button").click();
 	});
 
 	addSaveButton.addEventListener("click", function() {
