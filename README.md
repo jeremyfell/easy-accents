@@ -6,102 +6,77 @@ A Chrome extension which allows you to easily insert Unicode characters in brows
 Inserting a character
 ------
 In an input box or a text box, type # followed by the shortcut for the shortcut defined for that character.  
-Then press Ctrl, this text will be replaced with the character.
+Then press Ctrl, and this text will be replaced with the character.
 
 Copying a character to the clipboard
 ------
-Open the popup, type the shortcut for the character, then click the clipboard button or press enter.  
+Open the popup, type the shortcut for the character, then click the clipboard button or press enter or Ctrl.  
 You can now easily insert the character anywhere with Ctrl+v.  
 
-![clipboard](https://user-images.githubusercontent.com/31748813/34911882-f9be441c-f887-11e7-8cb3-8c8f6a1e8667.png)
+![toolbar](https://user-images.githubusercontent.com/31748813/35211328-dd1f6424-ff0a-11e7-9968-4c5c0f522e3d.png)
 
-Inserting a character using the # method will not work in some cases (such as in the URL box) due to limitations in the Chrome JavaScript APIs.  
-Instead, use the clipboard method to paste the character.
+Inserting a character using the # method will not work in some cases (such as in the URL box) due to limitations in the Chrome JavaScript APIs. You may also want to copy characters into other programs such as Microsoft Word.
+Instead, use the clipboard method to paste the character.  
+
+Adding shortcuts
+------
+
+![addblank](https://user-images.githubusercontent.com/31748813/35211321-dcb6d7ce-ff0a-11e7-9b17-700c3f7c58a1.png)
+
+To add a new shortcut in the Add tab, simply type the shortcut into the first input, the character/text to replace it in the second input box, and then click the save button. 
+
+![addfilled](https://user-images.githubusercontent.com/31748813/35211323-dcce58f4-ff0a-11e7-8a59-320c1d2df573.png)
+
+Shortcuts must be unused, and not contain any uppercase letters.  
+The reason no uppercase letters are allowed is the EasyAccents automatically generates an uppercase version of any shortcut.  
+To use it, simply capitalize any letter in the shortcut when typing it, and its replacement will be capitalized as well.  
 
 Shortcuts are not limited to just single characters.  
-You can also create a shortcut that will insert a large amount of text, which can be useful for sentences or paragraphs you need to paste often.  
+You can also create a shortcut that will insert a large amount of text (up to 1000 characters), which can be useful for sentences or paragraphs you need to paste often.  
 
-Currently there is not yet a menu, but all sample shortcuts below are usable
+Editing shortcuts
+To edit a shortcut in the Edit tab, simply change its shortcut or replacement value in its input box. As long the change is valid, it will be automatically saved, otherwise it will revert to its previous value.  
+Click the clipboard button to copy it, or the delete button to remove the shortcut.  
 
-Sample shortcuts
+![edit](https://user-images.githubusercontent.com/31748813/35211325-dcf6c91a-ff0a-11e7-97bb-e209150fdf5b.png)
+
+Starting out
 ------
-| Shortcut | Character |
-| ------ | ------ |
-|#a'  |   á  |
-|#e'  |   é  |
-|#i'  |   í  |
-|#o'  |   ó  |
-|#u'  |   ú  |
-|#y'  |   ý  |
-|#a`  |   à  |
-|#e`  |   è  |
-|#i`  |   ì  |
-|#o`  |   ò  |
-|#u`  |   ù  |
-|#a^  |   â  |
-|#e^  |   ê  |
-|#i^  |   î  |
-|#o^  |   ô  |
-|#u^  |   û  |
-|#a:  |   ä  |
-|#e:  |   ë  |
-|#i:  |   ï  |
-|#o:  |   ö  |
-|#u:  |   ü  |
-|#y:  |   ÿ  |
-|#a~  |   ã  |
-|#n~  |   ñ  |
-|#o~  |   õ  |
-|#c  |   ç  |
-|#ae  |   æ  |
-|#oe  |   œ  |
-|  |
-|#d-  |   ð  |
-|#a.  |   å  |
-|#o/  |   ø  |
-|#th  |   þ  |
-|#ss  |   ß  |
-|  |
-|#!  |   ¡  |
-|#?  |   ¿  |
-|#<  |   ‹  |
-|#>  |   ›  |
-|#<<  |   «  |
-|#>>  |   »  |
-|  |
-|#.-  |   •  |
-|#m-  |   —  |
-|#n-  |   –  |
-|#.  |   °  |
-|  |
-|#+-  |   ±  |
-|#!=  |   ≠  |
-|#<=  |   ≤  |
-|#>=  |   ≥  |
-|#/  |   ÷  |
-|#*  |   ×  |
-|  |
-|#^2  |   ²  |
-|#^3  |   ³  |
-|#1/2  |   ½  |
-|#1/4  |   ¼  |
-|#3/4  |   ¾  |
-|#1/3  |   ⅓  |
-|#2/3  |   ⅔  |
-|#1/5  |   ⅕  |
-|#2/5  |   ⅖  |
-|#3/5  |   ⅗  |
-|#4/5  |   ⅘  |
-|#1/6  |   ⅙  |
-|#5/6  |   ⅚  |
-|#1/8  |   ⅛  |
-|#3/8  |   ⅜  |
-|#5/8  |   ⅝  |
-|#7/8  |   ⅞  |
-|#pi  |   Π  |
-|#mu  |   µ  |
-|  |
-|#$l  |   £  |
-|#$e  |   €  |
-|#$y  |   Ұ  |
-|#$c  |   ¢  
+If you haven't created any shortcuts and want some default shortcuts to use, go to the edit tab and click the button.  
+
+![empty](https://user-images.githubusercontent.com/31748813/35211326-dd0af520-ff0a-11e7-8296-a88292dcf642.png)
+
+Default shortcuts
+------
+| Shortcut | Character | Shortcut | Character | Shortcut | Character | Shortcut | Character
+| ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+|#a'  |   á  | #i:  |   ï  | #>  |   ›  | #1/3  |   ⅓  |
+|#e'  |   é  | #o:  |   ö  | #<<  |   «  | #2/3  |   ⅔  |
+|#i'  |   í  | #u:  |   ü  | #>>  |   »  | #1/5  |   ⅕  |
+|#o'  |   ó  | #y:  |   ÿ  | #.-  |   •  | #2/5  |   ⅖  |
+|#u'  |   ú  | #a~  |   ã  | #m-  |   —  | #3/5  |   ⅗  |
+|#y'  |   ý  | #n~  |   ñ  | #n-  |   –  | #4/5  |   ⅘  |
+|#a`  |   à  | #o~  |   õ  | #.  |   °  | #1/6  |   ⅙  |
+|#e`  |   è  | #c  |   ç  | #+-  |   ±  | #5/6  |   ⅚  |
+|#i`  |   ì  | #ae  |   æ  | #!=  |   ≠  | #1/8  |   ⅛  |
+|#o`  |   ò  | #oe  |   œ  | #<=  |   ≤  | #3/8  |   ⅜  |
+|#u`  |   ù  | #d-  |   ð  | #>=  |   ≥  | #5/8  |   ⅝  |
+|#a^  |   â  | #a.  |   å  | #/  |   ÷  | #7/8  |   ⅞  |
+|#e^  |   ê  | #o/  |   ø  | #*  |   ×  | #pi  |   Π  |
+|#i^  |   î  | #th  |   þ  | #^2  |   ²  | #mu  |   µ  |
+|#o^  |   ô  | #ss  |   ß  | #^3  |   ³  | #$l  |   £  |
+|#u^  |   û  | #!  |   ¡  | #1/2  |   ½  | #$e  |   €  |
+|#a:  |   ä  | #?  |   ¿  | #1/4  |   ¼  | #$y  |   Ұ  |
+|#e:  |   ë  | #<  |   ‹  | #3/4  |   ¾  | #$c  |   ¢  |
+
+Popup Shortcut
+------
+The keylinks popup can also be opened quickly using Ctrl+, (comma).  
+
+Using Extension
+------
+The extension is not yet released on the Chrome web store, but can still be used while in development.  
+Download the zip of this project, and extract the main folder.  
+Go to chrome://extensions, and enable developer mode.  
+Click "Load unpacked extension" and select the folder.  
+The extension is now ready to use.  
