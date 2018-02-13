@@ -1,4 +1,3 @@
-
 function addTab() {
 
 	var addTabContainer = document.getElementById("add-tab-container");
