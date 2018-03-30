@@ -5,18 +5,17 @@ A Chrome extension which allows you to easily insert Unicode characters in brows
 
 Inserting a character
 ------
-In an input box or a text box, type # followed by the shortcut for the shortcut defined for that character.  
-Then press Ctrl, and this text will be replaced with the character.
+In an input box or a text box, type <kbd>#</kbd> followed by the shortcut for the shortcut defined for that character.  
+Then press <kbd>Ctrl</kbd>, and this text will be replaced with the character.
 
 Copying a character to the clipboard
 ------
-Open the popup, type the shortcut for the character, then click the clipboard button or press enter or Ctrl.  
-You can now easily insert the character anywhere with Ctrl+v.  
+Open the popup, type the shortcut for the character, then click the clipboard button or press <kbd>Enter</kbd> or <kbd>Ctrl</kbd>.  
+You can now easily insert the character anywhere with <kbd>Ctrl</kbd>+<kbd>v</kbd>.  
 
 ![toolbar](https://user-images.githubusercontent.com/31748813/35211328-dd1f6424-ff0a-11e7-9968-4c5c0f522e3d.png)
 
-Inserting a character using the # method will not work in some cases (such as in the URL box) due to limitations in the Chrome JavaScript APIs. You may also want to copy characters into other programs such as Microsoft Word.
-Instead, use the clipboard method to paste the character.  
+Inserting a character using the <kbd>#</kbd> method will not work in some cases (such as in the URL box) due to limitations in the Chrome JavaScript APIs. In order to copy characters into alternate programs, use the clipboard method instead.
 
 Adding shortcuts
 ------
@@ -28,14 +27,14 @@ To add a new shortcut in the Add tab, simply type the shortcut into the first in
 ![addfilled](https://user-images.githubusercontent.com/31748813/35211323-dcce58f4-ff0a-11e7-8a59-320c1d2df573.png)
 
 Shortcuts must be unused, and not contain any uppercase letters.  
-The reason no uppercase letters are allowed is the EasyAccents automatically generates an uppercase version of any shortcut.  
+The reason no uppercase letters are allowed is because EasyAccents automatically generates an uppercase version of any shortcut.  
 To use it, simply capitalize any letter in the shortcut when typing it, and its replacement will be capitalized as well.  
 
 Shortcuts are not limited to just single characters.  
-You can also create a shortcut that will insert a large amount of text (up to 1000 characters), which can be useful for sentences or paragraphs you need to paste often.  
+You can also create a shortcut that will insert a large amount of text (up to 1000 characters), which can be useful for sentences or paragraphs that you need to paste often.  
 
 Editing shortcuts
-To edit a shortcut in the Edit tab, simply change its shortcut or replacement value in its input box. As long the change is valid, it will be automatically saved, otherwise it will revert to its previous value.  
+To edit a shortcut in the Edit tab, simply change its shortcut or replacement value in its input box. As long as the change is valid, it will automatically be saved, otherwise it will revert to its previous value.  
 Click the clipboard button to copy it, or the delete button to remove the shortcut.  
 
 ![edit](https://user-images.githubusercontent.com/31748813/35211325-dcf6c91a-ff0a-11e7-97bb-e209150fdf5b.png)
@@ -71,7 +70,7 @@ Default shortcuts
 
 Popup Shortcut
 ------
-The keylinks popup can also be opened quickly using Ctrl+, (comma).  
+The keylinks popup can also be opened quickly using <kbd>Ctrl</kbd>+<kbd>,</kbd>  
 
 Using Extension
 ------
