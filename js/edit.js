@@ -80,6 +80,7 @@ function restoreDefaults() {
 		"$y": "Ұ",
 		"$c": "¢",
 		"keyword": "You can also create shortcuts for text containing up to 1000 characters",
+		"emoji": "😃"
 	}
 
 	var time = new Date().getTime();
